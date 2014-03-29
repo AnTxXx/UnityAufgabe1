@@ -85,6 +85,15 @@ public class GameMechanic : MonoBehaviour {
 		*/
 		P1act.guiText.text = "Player1 Actual Time: " + (Time.time - P1points).ToString ("F2");
 		P2act.guiText.text = "Player2 Actual Time: " + (Time.time - P2points).ToString ("F2");
+		if(P1bestpoints != 0f && P2bestpoints != 0f){
+			if(P1bestpoints>P2bestpoints){
+				P1best.guiText.fontSize = 20;
+				P2best.guiText.fontSize = 0;
+			} else {
+				P2best.guiText.fontSize = 20;
+				P1best.guiText.fontSize = 0;
+			}
+		}
 		if(randy<8){
 			if(moveYa<0){
 				moveYa -= 1f;
