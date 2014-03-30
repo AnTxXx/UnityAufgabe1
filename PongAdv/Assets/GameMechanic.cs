@@ -16,6 +16,11 @@ public class GameMechanic : MonoBehaviour {
 	GameObject cam;
 	GameObject wholeScene;
 
+	public GameObject plus;
+	public GameObject minus;
+
+	public int maxGameTime = 172;
+
 	int rotateYa = 0;
 	float moveYa = 0f;
 
@@ -23,6 +28,12 @@ public class GameMechanic : MonoBehaviour {
 	GameObject P1act;
 	GameObject P2best;
 	GameObject P2act;
+
+	bool timeIsUp = false;
+	bool leaderP1 = false;
+
+	GameObject OutRestTime;
+	GameObject GameOutput;
 
 	float P1points = 0f, P1bestpoints = 0f, P2points = 0f, P2bestpoints = 0f;
 
@@ -45,6 +56,9 @@ public class GameMechanic : MonoBehaviour {
 		P1act = GameObject.Find("ActSurvivalP1");
 		P2best = GameObject.Find("BestSurvivalP2");
 		P2act = GameObject.Find("ActSurvivalP2");
+
+		OutRestTime = GameObject.Find("RemainGameTime");
+		GameOutput = GameObject.Find("GameOutput");
 
 		P1points = 0;
 		P1bestpoints = 0;
@@ -85,29 +99,38 @@ public class GameMechanic : MonoBehaviour {
 		*/
 		P1act.guiText.text = "Player1 Actual Time: " + (Time.time - P1points).ToString ("F2");
 		P2act.guiText.text = "Player2 Actual Time: " + (Time.time - P2points).ToString ("F2");
+		if((maxGameTime - Time.time) >= 0) OutRestTime.guiText.text = "Remaining Time Left: " + (maxGameTime - Time.time).ToString("F2");
+		if((maxGameTime - Time.time) < 0) {
+			timeIsUp = true;
+			OutRestTime.guiText.text = "Time is up ... final death of follower finishes round";
+		}
 		if(P1bestpoints != 0f || P2bestpoints != 0f){
 			if(P1bestpoints>P2bestpoints){
 				P1best.guiText.fontSize = 20;
 				P2best.guiText.fontSize = 0;
 				P1act.guiText.fontSize = 0;
 				P2act.guiText.fontSize = 0;
+				leaderP1 = true;
 			} else {
 				P2best.guiText.fontSize = 20;
 				P1best.guiText.fontSize = 0;
 				P1act.guiText.fontSize = 0;
 				P2act.guiText.fontSize = 0;
+				leaderP1 = false;
 			}
 			if((Time.time - P1points) > P2bestpoints && P2bestpoints != 0){
 				P1act.guiText.fontSize = 20;
 				P2act.guiText.fontSize = 0;
 				P2best.guiText.fontSize = 0;
 				P1best.guiText.fontSize = 0;
+				leaderP1 = true;
 			}
 			if((Time.time - P2points) > P1bestpoints && P1bestpoints != 0){
 				P2act.guiText.fontSize = 20;
 				P1act.guiText.fontSize = 0;
 				P2best.guiText.fontSize = 0;
 				P1best.guiText.fontSize = 0;
+				leaderP1 = false;
 			}
 		}
 		if(randy<8){
@@ -134,6 +157,15 @@ public class GameMechanic : MonoBehaviour {
 			cam.transform.RotateAround(this.transform.position, Vector3.forward, moveYa*Time.deltaTime);
 		}
 		cam.transform.LookAt(new Vector3(0f,0f,0f));
+		int randy2 = Random.Range(1,1001);
+		if(randy2<3){
+			if(randy2==2) Instantiate(plus);
+			if(randy2==1) Instantiate(minus);
+			if(randy2==0) {
+				Instantiate(plus);
+				Instantiate(minus);
+			}
+		}
 	}
 
 	void OnTriggerEnter2D(Collider2D collision){
@@ -152,16 +184,26 @@ public class GameMechanic : MonoBehaviour {
 				if(zws > P1bestpoints){
 					P1bestpoints = zws;
 					P1best.guiText.text = "Player1 Best Time: " + P1bestpoints;
+					player1.transform.localScale = new Vector3(1f,3f,1f);
 				}
 				P1points = Time.time;
+
+				if(timeIsUp && !leaderP1){
+					GameOutput.guiText.text = "Game Over! Player2 has won.";
+				}
 			}
 			if(collision.name == gameOverRIGHT.name){
 				float zws = Time.time - P2points;
 				if(zws > P2bestpoints){
 					P2bestpoints = zws;
 					P2best.guiText.text = "Player2 Best Time: " + P2bestpoints;
+					player2.transform.localScale = new Vector3(1f,3f,1f);
 				}
 				P2points = Time.time;
+
+				if(timeIsUp && leaderP1){
+					GameOutput.guiText.text = "Game Over! Player1 has won.";
+				}
 			}
 		}
 		if (collision.name == player1.name || collision.name == player2.name){

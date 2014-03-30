@@ -48,6 +48,7 @@
   <ItemGroup>
      <Compile Include="Assets\GameMechanic.cs" />
      <Compile Include="Assets\MoveScriptP1.cs" />
+     <Compile Include="Assets\PowerUp.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

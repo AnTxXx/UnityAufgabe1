@@ -11,7 +11,7 @@ public class MoveScriptP1 : MonoBehaviour {
 	bool moveUP = true;
 	bool moveDOWN = true;
 
-	Vector2 speed = new Vector2(0f, 10f);
+	public Vector2 speed = new Vector2(0f, 10f);
 
 	public bool amIplayer1 = true;
 	public bool KI = false;
