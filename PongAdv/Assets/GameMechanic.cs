@@ -46,10 +46,10 @@ public class GameMechanic : MonoBehaviour {
 		P2best = GameObject.Find("BestSurvivalP2");
 		P2act = GameObject.Find("ActSurvivalP2");
 
-		P1points = Time.time;
-		P1bestpoints = Time.time;
-		P2points = Time.time;
-		P2bestpoints = Time.time;
+		P1points = 0;
+		P1bestpoints = 0;
+		P2points = 0;
+		P2bestpoints = 0;
 
 		P1best.guiText.text = "Player1 Best Time: " + 0f;
 		P2best.guiText.text = "Player2 Best Time: " + 0f;
@@ -85,12 +85,28 @@ public class GameMechanic : MonoBehaviour {
 		*/
 		P1act.guiText.text = "Player1 Actual Time: " + (Time.time - P1points).ToString ("F2");
 		P2act.guiText.text = "Player2 Actual Time: " + (Time.time - P2points).ToString ("F2");
-		if(P1bestpoints != 0f && P2bestpoints != 0f){
+		if(P1bestpoints != 0f || P2bestpoints != 0f){
 			if(P1bestpoints>P2bestpoints){
 				P1best.guiText.fontSize = 20;
 				P2best.guiText.fontSize = 0;
+				P1act.guiText.fontSize = 0;
+				P2act.guiText.fontSize = 0;
 			} else {
 				P2best.guiText.fontSize = 20;
+				P1best.guiText.fontSize = 0;
+				P1act.guiText.fontSize = 0;
+				P2act.guiText.fontSize = 0;
+			}
+			if((Time.time - P1points) > P2bestpoints && P2bestpoints != 0){
+				P1act.guiText.fontSize = 20;
+				P2act.guiText.fontSize = 0;
+				P2best.guiText.fontSize = 0;
+				P1best.guiText.fontSize = 0;
+			}
+			if((Time.time - P2points) > P1bestpoints && P1bestpoints != 0){
+				P2act.guiText.fontSize = 20;
+				P1act.guiText.fontSize = 0;
+				P2best.guiText.fontSize = 0;
 				P1best.guiText.fontSize = 0;
 			}
 		}
