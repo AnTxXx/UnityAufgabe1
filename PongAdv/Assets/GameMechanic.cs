@@ -19,7 +19,7 @@ public class GameMechanic : MonoBehaviour {
 	public GameObject plus;
 	public GameObject minus;
 
-	public int maxGameTime = 172;
+	public int maxGameTime = 165;
 
 	int rotateYa = 0;
 	float moveYa = 0f;
@@ -185,6 +185,7 @@ public class GameMechanic : MonoBehaviour {
 					P1bestpoints = zws;
 					P1best.guiText.text = "Player1 Best Time: " + P1bestpoints;
 					player1.transform.localScale = new Vector3(1f,3f,1f);
+					player1.transform.position = new Vector3(-15f,0f,0f);
 				}
 				P1points = Time.time;
 
@@ -198,6 +199,7 @@ public class GameMechanic : MonoBehaviour {
 					P2bestpoints = zws;
 					P2best.guiText.text = "Player2 Best Time: " + P2bestpoints;
 					player2.transform.localScale = new Vector3(1f,3f,1f);
+					player2.transform.position = new Vector3(15f,0f,0f);
 				}
 				P2points = Time.time;
 
