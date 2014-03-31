@@ -186,6 +186,7 @@ public class GameMechanic : MonoBehaviour {
 					P1best.guiText.text = "Player1 Best Time: " + P1bestpoints;
 					player1.transform.localScale = new Vector3(1f,3f,1f);
 					player1.transform.position = new Vector3(-15f,0f,0f);
+					player1.GetComponent<MoveScriptP1>().speed = new Vector3(0f, 10f);
 				}
 				P1points = Time.time;
 
@@ -200,6 +201,7 @@ public class GameMechanic : MonoBehaviour {
 					P2best.guiText.text = "Player2 Best Time: " + P2bestpoints;
 					player2.transform.localScale = new Vector3(1f,3f,1f);
 					player2.transform.position = new Vector3(15f,0f,0f);
+					player2.GetComponent<MoveScriptP1>().speed = new Vector3(0f, 10f);
 				}
 				P2points = Time.time;
 
