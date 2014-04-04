@@ -187,6 +187,8 @@ public class GameMechanic : MonoBehaviour {
 					player1.transform.localScale = new Vector3(1f,3f,1f);
 					player1.transform.position = new Vector3(-15f,0f,0f);
 					player1.GetComponent<MoveScriptP1>().speed = new Vector3(0f, 10f);
+					player1.GetComponent<MoveScriptP1>().moveUP = true;
+					player1.GetComponent<MoveScriptP1>().moveDOWN = true;
 				}
 				P1points = Time.time;
 
@@ -202,6 +204,8 @@ public class GameMechanic : MonoBehaviour {
 					player2.transform.localScale = new Vector3(1f,3f,1f);
 					player2.transform.position = new Vector3(15f,0f,0f);
 					player2.GetComponent<MoveScriptP1>().speed = new Vector3(0f, 10f);
+					player2.GetComponent<MoveScriptP1>().moveUP = true;
+					player2.GetComponent<MoveScriptP1>().moveDOWN = true;
 				}
 				P2points = Time.time;
 

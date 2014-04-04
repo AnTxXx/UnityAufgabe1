@@ -8,8 +8,8 @@ public class MoveScriptP1 : MonoBehaviour {
 	GameObject blockUP;
 	GameObject blockDOWN;
 
-	bool moveUP = true;
-	bool moveDOWN = true;
+	public bool moveUP = true;
+	public bool moveDOWN = true;
 
 	public Vector2 speed = new Vector2(0f, 10f);
 
