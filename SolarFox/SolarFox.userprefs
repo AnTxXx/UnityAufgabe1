@@ -1,0 +1,15 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="..\SolarMonkey\Assets\level.cs">
+    <Files>
+      <File FileName="..\SolarMonkey\Assets\enemyKI.cs" Line="100" Column="20" />
+      <File FileName="..\SolarMonkey\Assets\PlayerControls.cs" Line="128" Column="4" />
+      <File FileName="..\SolarMonkey\Assets\level.cs" Line="191" Column="22" />
+      <File FileName="..\SolarMonkey\Assets\bomb.cs" Line="22" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
