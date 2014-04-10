@@ -19,6 +19,9 @@ public class game_state : MonoBehaviour {
 	private bool showContinue;
 	private float lastBlinkChange;
 
+	private int player1mode = 0;
+	private int player2mode = 1;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -34,8 +37,63 @@ public class game_state : MonoBehaviour {
 			setMode("play");
 		}
 
+		// change 1st player's mode
+		if (mode == "start" && (Input.GetKeyDown("1") || Input.GetKeyDown(KeyCode.Keypad1) )) {
+
+			player1mode++;
+			if (player1mode > 2)
+				player1mode = 0;
+
+			if (player1mode == 0) {
+				guiPlayer1Mode.text = "Player1: WASD keys (press 1 to change)";
+				player1.GetComponent<movement>().ki = false;
+				player1.GetComponent<movement>().keyUp = "w";
+				player1.GetComponent<movement>().keyDown = "s";
+				player1.GetComponent<movement>().keyLeft = "a";
+				player1.GetComponent<movement>().keyRight = "d";
+			} else if (player1mode == 1) {
+				guiPlayer1Mode.text = "Player1: Arrow keys (press 1 to change)";
+				player1.GetComponent<movement>().ki = false;
+				player1.GetComponent<movement>().keyUp = "up";
+				player1.GetComponent<movement>().keyDown = "down";
+				player1.GetComponent<movement>().keyLeft = "left";
+				player1.GetComponent<movement>().keyRight = "right";
+			} else if (player1mode == 2) {
+				guiPlayer1Mode.text = "Player1: CPU (press 1 to change)";
+				player1.GetComponent<movement>().ki = true;
+			}
+		}
+
+		// change 2nd player's mode
+		if (mode == "start" && (Input.GetKeyDown("2") || Input.GetKeyDown(KeyCode.Keypad2) )) {
+			
+			player2mode++;
+			if (player2mode > 2)
+				player2mode = 0;
+			
+			if (player2mode == 0) {
+				guiPlayer2Mode.text = "Player2: WASD keys (press 2 to change)";
+				player2.GetComponent<movement>().ki = false;
+				player2.GetComponent<movement>().keyUp = "w";
+				player2.GetComponent<movement>().keyDown = "s";
+				player2.GetComponent<movement>().keyLeft = "a";
+				player2.GetComponent<movement>().keyRight = "d";
+			} else if (player2mode == 1) {
+				guiPlayer2Mode.text = "Player2: Arrow keys (press 2 to change)";
+				player2.GetComponent<movement>().ki = false;
+				player2.GetComponent<movement>().keyUp = "up";
+				player2.GetComponent<movement>().keyDown = "down";
+				player2.GetComponent<movement>().keyLeft = "left";
+				player2.GetComponent<movement>().keyRight = "right";
+			} else if (player2mode == 2) {
+				guiPlayer2Mode.text = "Player2: CPU (press 2 to change)";
+				player2.GetComponent<movement>().ki = true;
+			}
+		}
+
 		// reset game
-		if (mode == "finish" && Input.GetKeyDown("space")) {
+		if ((mode == "finish" && Input.GetKeyDown("space")) ||
+		    (mode == "play" && Input.GetKeyDown("escape")) ) {
 			setMode("start");
 		}
 
@@ -56,7 +114,7 @@ public class game_state : MonoBehaviour {
 			((movement) player2.GetComponent<movement>()).score = 0;
 			((movement) player1.GetComponent<movement>()).scoreGUI.text = "0";
 			((movement) player2.GetComponent<movement>()).scoreGUI.text = "0";
-			if (Time.time > 10) {
+			if (Time.time > 3) {
 				player1.transform.position = ((movement) player1.GetComponent<movement>()).startposition;
 				player2.transform.position = ((movement) player2.GetComponent<movement>()).startposition;
 			}

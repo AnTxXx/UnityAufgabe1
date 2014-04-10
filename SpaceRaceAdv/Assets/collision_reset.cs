@@ -34,10 +34,19 @@ public class collision_reset : MonoBehaviour {
 
 	void OnTriggerEnter2D (Collider2D col) {
 
-		transform.localScale = new Vector3(0f, 0f, 0f);
+		if (col.gameObject.name != "Up" &&
+		    col.gameObject.name != "Down" &&
+		    col.gameObject.name != "Left" &&
+		    col.gameObject.name != "Right") {
 
-		collisionTime = Time.time;
-		waiting = true;
+			//print (col.gameObject.name);
+
+			transform.localScale = new Vector3(0f, 0f, 0f);
+
+			collisionTime = Time.time;
+			waiting = true;
+
+		}
 
 	}
 

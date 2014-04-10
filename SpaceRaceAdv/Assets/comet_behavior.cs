@@ -14,7 +14,7 @@ public class comet_behavior : MonoBehaviour {
 	private float rotation;
 	private float size;
 
-	private float creationTime;
+	//private float creationTime;
 
 	// Use this for initialization
 	void Start () {
@@ -32,7 +32,7 @@ public class comet_behavior : MonoBehaviour {
 
 		transform.localScale = new Vector3(size, size, 1);
 
-		creationTime = Time.time;
+		//creationTime = Time.time;
 
 	}
 	

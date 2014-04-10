@@ -1,13 +1,15 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\create_comets.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\game_state.cs">
     <Files>
-      <File FileName="Assets\comet_behavior.cs" Line="64" Column="4" />
-      <File FileName="Assets\movement.cs" Line="38" Column="41" />
+      <File FileName="SpaceRaceAdv.sln" Line="1" Column="1" />
+      <File FileName="Assets\movement.cs" Line="48" Column="40" />
+      <File FileName="Assets\comet_behavior.cs" Line="35" Column="5" />
       <File FileName="Assets\create_comets.cs" Line="27" Column="32" />
-      <File FileName="Assets\game_state.cs" Line="1" Column="1" />
-      <File FileName="Assets\collision_reset.cs" Line="1" Column="1" />
+      <File FileName="Assets\game_state.cs" Line="23" Column="29" />
+      <File FileName="Assets\collision_reset.cs" Line="42" Column="6" />
       <File FileName="Assets\timelimit.cs" Line="1" Column="1" />
+      <File FileName="Assets\kiCollisionCounter.cs" Line="36" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

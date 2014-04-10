@@ -50,6 +50,7 @@
      <Compile Include="Assets\comet_behavior.cs" />
      <Compile Include="Assets\create_comets.cs" />
      <Compile Include="Assets\game_state.cs" />
+     <Compile Include="Assets\kiCollisionCounter.cs" />
      <Compile Include="Assets\movement.cs" />
      <Compile Include="Assets\timelimit.cs" />
   </ItemGroup>
