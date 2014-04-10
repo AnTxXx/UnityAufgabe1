@@ -8,8 +8,11 @@ public class PlayerControls : MonoBehaviour {
 
 	private Vector2 speed;
 	private int turbo = 1, maxSpeed=3;
+	private int flameCounter=0;
+	private float dontDieTwiceTimer;
 
-	public GameObject level, background;
+	public GameObject level, background, explosion, flareFlash, flareFire, flareStream;
+
 
 	
 	private const float BORDER_Y=3f, BORDER_X=6f;
@@ -23,13 +26,23 @@ public class PlayerControls : MonoBehaviour {
 		speed = new Vector2(0, 0);
 		Debug.Log("Init Player CTRL");
 		background = GameObject.Find("background");
-		
+		dontDieTwiceTimer=Time.time-2;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-		background.transform.position = new Vector3((-0.05f)*transform.position.x, (-0.05f)*transform.position.y, 0);
+		background.transform.position = new Vector3((-0.07f)*transform.position.x, (-0.07f)*transform.position.y, 0);
+
+
+		if((flameCounter--)>0)  {
+			flareFlash.SetActive(true);
+			flareFire.SetActive(true);
+		} else {
+			flareFlash.SetActive(false);
+			flareFire.SetActive(false);
+		}
+
 
 		// Set the speed
 		if(speed.x > 0)
@@ -52,18 +65,26 @@ public class PlayerControls : MonoBehaviour {
 		if((Input.GetKey(moveUp)) && (speed.y < maxSpeed*turbo)) {
 			speed.y+=2*turbo;
 			transform.localEulerAngles = new Vector3(0, 0, 0);
+
+			flameCounter=10;
 		}
 		if((Input.GetKey(moveDown)) && (speed.y > -maxSpeed*turbo)) {
 			speed.y-=2*turbo;
 			transform.localEulerAngles = new Vector3(0, 0, 180);
+
+			flameCounter=10;
 		}
 		if((Input.GetKey(moveRight)) && (speed.x < maxSpeed*turbo)) {
 			speed.x+=2*turbo;
 			transform.localEulerAngles = new Vector3(0, 0, 270);
+
+			flameCounter=10;
 		}
 		if((Input.GetKey(moveLeft)) && (speed.x > -maxSpeed*turbo)) {
 			speed.x-=2*turbo;
 			transform.localEulerAngles = new Vector3(0, 0, 90);
+
+			flameCounter=10;
 		}
 
 
@@ -108,29 +129,44 @@ public class PlayerControls : MonoBehaviour {
 		}
 
 		if(collision.gameObject.tag.Equals("bomb") || collision.gameObject.tag.Equals("obstacle")) {
-			Debug.Log("-- Ship destroyed");
-			lives--;
-			guiLives.text=lives.ToString() + " Lives";
-			transform.position = new Vector3(0, 0, 0);
 
-			if(lives>1)
-				level.GetComponent<level>().setPauseCounter(50, lives.ToString() + " lives left!");
-			else if (lives==1) {
-				level.GetComponent<level>().setPauseCounter(50, lives.ToString() + " life left!");
-			} else {
-				level.GetComponent<level>().setGameOver();
+			if((Time.time-dontDieTwiceTimer)>2) {
+				dontDieTwiceTimer=Time.time;
+
+				Debug.Log("-- Ship destroyed");
+
+				Instantiate(explosion, new Vector3(transform.position.x, transform.position.y, 0), Quaternion.identity);
+
+				lives--;
+				guiLives.text=lives.ToString() + " Lives";
+				transform.GetComponent<SpriteRenderer>().enabled=false;
+				flareStream.SetActive(false);
+
+				Invoke("died", 2);
 			}
+		}
+	}
 
-			// Remove all bombs after collision to prevent death on respawn
-			GameObject[] gos;
-			gos = GameObject.FindGameObjectsWithTag("bomb");
-			foreach (GameObject go in gos) {
-				Destroy(go);
-			}
-
-			
+	void died() {
+	
+		if(lives>1)
+			level.GetComponent<level>().setPauseCounter(50, lives.ToString() + " lives left!");
+		else if (lives==1) {
+			level.GetComponent<level>().setPauseCounter(50, lives.ToString() + " life left!");
+		} else {
+			level.GetComponent<level>().setGameOver();
 		}
 
+		transform.GetComponent<SpriteRenderer>().enabled=true;
+		flareStream.SetActive(true);
+		transform.position = new Vector3(0, 0, 0);
+
+		// Remove all bombs after collision to prevent death on respawn
+		GameObject[] gos;
+		gos = GameObject.FindGameObjectsWithTag("bomb");
+		foreach (GameObject go in gos) {
+			Destroy(go);
+		}
 
 	}
 

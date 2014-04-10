@@ -129,7 +129,7 @@ public class level : MonoBehaviour {
 
 		int[][] bricks = new int[9][];
 
-		switch (level) {
+		switch (level%4) {
 		case 0:
 			bricks[0] = new int[9] {0,0,0, 0,0,0, 0,0,0};
 			bricks[1] = new int[9] {0,0,0, 0,0,0, 0,0,0};
@@ -192,6 +192,20 @@ public class level : MonoBehaviour {
 		}
 
 
+		// remove all bombs
+		GameObject[] gos;
+		gos = GameObject.FindGameObjectsWithTag("bomb");
+		foreach (GameObject go in gos) {
+			Destroy(go);
+		}
+		
+		// remove all old obstacles
+		gos = GameObject.FindGameObjectsWithTag("obstacle");
+		foreach (GameObject go in gos) {
+			Destroy(go);
+		}
+
+
 		// 9 bricks, start at -5 bricks offset from origin (0,0)
 		float left = -5f*offset.x;
 		float y=-5f*offset.x, x=left;
@@ -215,14 +229,6 @@ public class level : MonoBehaviour {
 			}
 		}
 
-		// remove all bombs
-		GameObject[] gos;
-		gos = GameObject.FindGameObjectsWithTag("bomb");
-		foreach (GameObject go in gos) {
-			Destroy(go);
-		}
-		
-		
 	}
 
 
@@ -260,30 +266,42 @@ public class level : MonoBehaviour {
 			obstacles[8] = new int[9] {0,0,2, 0,0,0, 0,0,0};
 			break;
 
+
 		case 2:
-			obstacles[0] = new int[9] {0,0,2, 0,0,0, 0,0,0};
-			obstacles[1] = new int[9] {0,0,2, 0,0,0, 0,0,0};
-			obstacles[2] = new int[9] {0,0,2, 0,0,0, 0,0,0};
-			obstacles[3] = new int[9] {0,0,2, 0,0,0, 0,0,0};
-			obstacles[4] = new int[9] {0,0,2, 0,0,0, 0,0,0};
-			obstacles[5] = new int[9] {0,0,2, 0,0,0, 0,0,0};
-			obstacles[6] = new int[9] {0,0,2, 0,0,0, 0,0,0};
-			obstacles[7] = new int[9] {0,0,2, 0,0,0, 0,0,0};
-			obstacles[8] = new int[9] {0,0,2, 0,0,0, 0,0,0};
+			obstacles[0] = new int[9] {0,0,2, 0,0,2, 0,0,0};
+			obstacles[1] = new int[9] {0,0,2, 0,0,2, 0,0,0};
+			obstacles[2] = new int[9] {0,0,2, 1,1,2, 0,2,0};
+			obstacles[3] = new int[9] {1,1,2, 0,0,0, 0,2,0};
+			obstacles[4] = new int[9] {0,0,2, 0,0,0, 0,2,0};
+			obstacles[5] = new int[9] {1,1,2, 0,0,0, 0,0,0};
+			obstacles[6] = new int[9] {0,0,2, 1,1,1, 1,1,1};
+			obstacles[7] = new int[9] {0,0,2, 0,0,0, 2,0,0};
+			obstacles[8] = new int[9] {0,0,2, 1,1,1, 2,0,0};
 			break;
 
 		case 3:
-			obstacles[0] = new int[9] {0,0,2, 0,0,0, 0,0,0};
-			obstacles[1] = new int[9] {0,0,2, 0,0,0, 0,0,0};
-			obstacles[2] = new int[9] {0,0,2, 0,0,0, 0,0,0};
-			obstacles[3] = new int[9] {0,0,2, 0,0,0, 0,0,0};
-			obstacles[4] = new int[9] {0,0,2, 0,0,0, 0,0,0};
-			obstacles[5] = new int[9] {0,0,2, 0,0,0, 0,0,0};
-			obstacles[6] = new int[9] {0,0,2, 0,0,0, 0,0,0};
-			obstacles[7] = new int[9] {0,0,2, 0,0,0, 0,0,0};
-			obstacles[8] = new int[9] {0,0,2, 0,0,0, 0,0,0};
+			obstacles[0] = new int[9] {0,0,2, 0,0,2, 0,0,0};
+			obstacles[1] = new int[9] {0,0,2, 0,0,2, 0,0,0};
+			obstacles[2] = new int[9] {0,0,2, 0,0,2, 0,0,0};
+			obstacles[3] = new int[9] {1,1,1, 1,1,1, 1,1,1};
+			obstacles[4] = new int[9] {0,0,2, 0,0,0, 0,2,0};
+			obstacles[5] = new int[9] {1,1,1, 1,1,1, 1,1,1};
+			obstacles[6] = new int[9] {0,0,2, 0,0,0, 2,0,0};
+			obstacles[7] = new int[9] {0,0,2, 0,0,0, 2,0,0};
+			obstacles[8] = new int[9] {1,1,1, 1,1,1, 1,1,1};
 			break;
-			
+
+		case 4:
+			obstacles[0] = new int[9] {0,0,2, 2,0,2, 2,0,0};
+			obstacles[1] = new int[9] {0,0,2, 2,0,2, 2,0,0};
+			obstacles[2] = new int[9] {0,0,2, 2,0,2, 2,0,0};
+			obstacles[3] = new int[9] {1,1,1, 1,1,1, 1,1,1};
+			obstacles[4] = new int[9] {0,0,2, 0,0,0, 0,2,0};
+			obstacles[5] = new int[9] {1,1,1, 1,1,1, 1,1,1};
+			obstacles[6] = new int[9] {0,0,2, 2,0,2, 2,0,0};
+			obstacles[7] = new int[9] {0,0,2, 2,0,2, 2,0,0};
+			obstacles[8] = new int[9] {1,1,1, 1,1,1, 1,1,1};
+			break;
 			
 			
 		default:
@@ -305,7 +323,6 @@ public class level : MonoBehaviour {
 		float y=-5f*offset.x, x=left;
 
 		GameObject parentObstacles = GameObject.Find("Obstacles");
-		GameObject o;
 
 		for(int i=0; i<9; i++) {
 			x=left;
