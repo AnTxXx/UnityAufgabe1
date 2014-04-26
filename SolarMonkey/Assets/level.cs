@@ -9,6 +9,7 @@ public class level : MonoBehaviour {
 	public GameObject obstacle; 
 	public bool pause=true, gameOver=false;
 	public KeyCode space, moveEnemies, moveObstacles;
+	public bool swipeLeft, swipeRight;
 	public GUIText status;
 
 	public GameObject ship, enemyTop, enemyBottom;
@@ -34,10 +35,42 @@ public class level : MonoBehaviour {
 
 	void Update () {
 
+		swipeLeft=false;
+		swipeRight=false;
+
+		if (Input.touchCount > 0) {
+
+
+
+			for (int i = 0; i < Input.touchCount; i++) {
+
+				Touch touch=Input.GetTouch(i);
+
+
+
+				if(touch.phase == TouchPhase.Ended) {
+					touch = Input.GetTouch(i);
+
+					Vector3 fingerPos = Camera.main.ScreenToWorldPoint(touch.position);
+					if(fingerPos.x>3.65f) {
+						swipeRight=true;
+					}
+
+					if(fingerPos.x<-3.65f) {
+						swipeLeft=true;
+					}
+
+				}
+			}
+		}
+
+
+
+
 		if(gameOver) {
 			Time.timeScale = 0;
 
-			if(Input.GetKey(space)) {
+			if(Input.GetKey(space) || (Input.touchCount>0)) {
 				Time.timeScale = 1;
 				Application.LoadLevel (Application.loadedLevelName);
 			}
@@ -55,12 +88,12 @@ public class level : MonoBehaviour {
 				Time.timeScale = 1;
 				status.text = "";
 
-				if(Input.GetKey(moveEnemies) && ((Time.time-changeEnemyPos)>0.6f) ) {
+				if((Input.GetKey(moveEnemies)||swipeRight) && ((Time.time-changeEnemyPos)>0.6f) ) {
 					horizontal=!horizontal;
 					changeEnemyPos=Time.time;
 				}
 
-				if(Input.GetKey(moveObstacles) && ((Time.time-changeObstaclePos)>0.6f) ) {
+				if((Input.GetKey(moveObstacles)||swipeLeft) && ((Time.time-changeObstaclePos)>0.6f) ) {
 					changeObstaclePos=Time.time;
 					rotationCounter=90;
 

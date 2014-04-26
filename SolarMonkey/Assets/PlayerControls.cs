@@ -11,7 +11,7 @@ public class PlayerControls : MonoBehaviour {
 	private int flameCounter=0;
 	private float dontDieTwiceTimer;
 
-	public GameObject level, background, explosion, flareFlash, flareFire, flareStream;
+	public GameObject level, background, explosion, flareFlash, flareFire, flareStream, fingerPointer;
 
 
 	
@@ -62,6 +62,65 @@ public class PlayerControls : MonoBehaviour {
 		}
 
 
+		// TOUCH Controls
+		if (Input.touchCount > 0) {
+
+			bool pointerActive=true;
+			Touch touch=Input.GetTouch(0);
+
+			for (int i = 0; i < Input.touchCount; i++) {
+
+				touch = Input.GetTouch(i);
+
+				if(touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled) {
+					pointerActive=false;
+				}
+
+			}
+
+
+			Vector3 fingerPos = Camera.main.ScreenToWorldPoint(touch.position);
+
+			if(Mathf.Abs(fingerPos.x)<3.65f) {
+
+				fingerPointer.transform.position = new Vector3(fingerPos.x, fingerPos.y, 0);
+				fingerPointer.SetActive(pointerActive);
+
+				Vector3 direction = (fingerPointer.transform.position - gameObject.transform.position).normalized;
+				Debug.Log("-- Direction " + direction);
+
+				if(Mathf.Abs(direction.x) > Mathf.Abs(direction.y)) {
+
+					if(direction.x < 0) {
+						speed.x-=2*turbo;
+						transform.localEulerAngles = new Vector3(0, 0, 90);
+					} else {
+						speed.x+=2*turbo;
+						transform.localEulerAngles = new Vector3(0, 0, 270);
+					}
+				}
+				else {
+
+					if(direction.y < 0) {
+						speed.y-=2*turbo;
+						transform.localEulerAngles = new Vector3(0, 0, 180);
+					} else {
+						speed.y+=2*turbo;
+						transform.localEulerAngles = new Vector3(0, 0, 0);
+					}
+				}
+
+				flameCounter=10;
+			}
+
+		} else {
+			fingerPointer.SetActive(false);
+		}
+
+
+
+
+		// KEY Controls
 		if((Input.GetKey(moveUp)) && (speed.y < maxSpeed*turbo)) {
 			speed.y+=2*turbo;
 			transform.localEulerAngles = new Vector3(0, 0, 0);
